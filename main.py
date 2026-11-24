@@ -16,6 +16,10 @@ ENTRY = (
 
 
 def main() -> int:
+    # Gate: the bounty allows at most 140 characters, one line. Fail
+    # loudly here rather than shipping an over-long entry.
+    assert len(ENTRY) <= 140, f"entry is {len(ENTRY)} chars, over the 140 cap"
+    assert "\n" not in ENTRY, "entry must be a single line"
     # Optional first argument overrides the output directory (used for
     # local verification); default is /output as the bounty requires.
     output_dir = sys.argv[1] if len(sys.argv) > 1 else "/output"
